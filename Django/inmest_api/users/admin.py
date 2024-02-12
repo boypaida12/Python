@@ -13,17 +13,26 @@ from .models import IMUser, Cohort, CohortMember
     # METHOD 1
 @admin.register(IMUser)
 class IMUserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("first_name", "last_name", "user_type", "date_created")
 
 @admin.register(Cohort)
 class CohortAdmin(admin.ModelAdmin):
-    pass
+    list_display=("name", "year", "author", "date_created")
 
 @admin.register(CohortMember)
 class CohortMemberAdmin(admin.ModelAdmin):
-    pass
+    list_display=("cohort", "member", "date_created")
 
     # METHOD 2
+# class IMUserAdmin(admin.ModelAdmin):
+#     list_display = ("first_name", "last_name", "user_type", "date_created")
+
+# class CohortAdmin(admin.ModelAdmin):
+#     list_display=("name", "year", "author", "date_created")
+
+# class CohortMemberAdmin(admin.ModelAdmin):
+#     list_display=("cohort", "member", "date_created")
+
 # admin.site.register(IMUser)
 # admin.site.register(Cohort)
 # admin.site.register(CohortMember)
