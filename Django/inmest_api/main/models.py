@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import IMUser 
+from users.models import IMUser, Cohort
 from django.contrib.auth.models import AbstractUser
 
 
@@ -29,7 +29,7 @@ class ClassSchedule(models.Model):
     repeat_frequency = models.CharField(max_length=20, choices=REPEAT_FREQUENCIES, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     organizer = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='organized_classes')  # Assuming IMUser from Part 1
-    cohort = models.ForeignKey('users.Cohort', on_delete=models.CASCADE, related_name='class_schedules')  # Assuming Cohort model in users app
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, related_name='class_schedules')  # Assuming Cohort model in users app
     venue = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
