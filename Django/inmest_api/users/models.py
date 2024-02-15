@@ -21,7 +21,7 @@ class IMUser(AbstractUser):
     phone_number = models.CharField(max_length=20, blank=True)
 
     USER_TYPES = [
-        ('EIT', 'Engineering Intern'),
+        ('EIT', 'Entrepreneur-In-Training'),
         ('TEACHING_FELLOW', 'Teaching Fellow'),
         ('ADMIN_STAFF', 'Administrative Staff'),
         ('ADMIN', 'Administrator'),
