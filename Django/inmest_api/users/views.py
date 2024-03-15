@@ -19,3 +19,4 @@ def signup(request):
     
     new_user.set_password(password)
     new_user.save()
+    

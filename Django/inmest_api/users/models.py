@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from rest_framework.authtoken.models import Token
 
 
 # Create your models here.
@@ -35,6 +38,12 @@ class IMUser(AbstractUser):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+@receiver(post_save, sender=IMUser)
+def generate_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        token = Token.objects.create(user=instance)
+        token.save()
+
 class Cohort(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -59,3 +68,11 @@ class CohortMember(models.Model):
 
     def __str__(self):
         return f"{self.member.first_name} {self.member.last_name} ({self.cohort.name})"
+    
+class Query(models.Model):
+    user = models.ForeignKey(IMUser, on_delete=models.CASCADE)
+    text = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def _str_(self):
+        return f"{self.user.username} - {self.text}"
